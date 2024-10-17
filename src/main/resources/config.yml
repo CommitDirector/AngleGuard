@@ -1,0 +1,202 @@
+# ----------------------------------------------
+#             AngleGuard Config v1.3.0
+# ----------------------------------------------
+# Welcome to the AngleGuard plugin configuration.
+# Customize checks, messages, and alerts.
+# Supports Hex colors and placeholders.
+# ----------------------------------------------
+
+# Placeholder options:
+#   %player%      - The player who triggered the alert or check.
+#   %check%       - The name of the triggered check (e.g., CW, AutoTotem).
+#   %vl%          - The violation level (VL) the player has reached.
+#   %max_vl%      - The maximum violation level for the check.
+#   %tps%         - The current server TPS (Ticks Per Second).
+#   %ping%        - The player's ping at the time of the alert.
+#   %client_version% - The version of Minecraft the player is using.
+#   %client_brand% - The client brand (e.g., Vanilla, OptiFine).
+#   %description% - Description of the specific check that was triggered.
+# ----------------------------------------------
+
+# =============================
+#  Message Settings
+# =============================
+messages:
+  # Message shown to players with the 'angleguard.alerts' permission.
+  # %player% - Player's name.
+  # %check% - Name of the check that failed.
+  # %vl% - Current violation level.
+  # %max_vl% - Maximum violation level for the check.
+  alert: '&8[&eAG&8] &6%player% &efailed &6%check% &8[&e%vl%&6/&e%max_vl%&8]'
+
+  # Console alert message.
+  # %player%, %check%, %vl%, %max_vl% are the same placeholders as above.
+  alert-console: '[AG] %player% failed %check% VL[%vl%/%max_vl%]'
+
+  # Feedback messages for enabling/disabling checks via commands.
+  # %check% - The specific check name being enabled or disabled.
+  disable-check: '&8[&eAG&8] &7Check &e%check% &7has been disabled!'
+  enable-check: '&8[&eAG&8] &7Check &e%check% &7has been enabled!'
+  check-not-found: '&8[&eAG&8] &7Check &c%check% &7not found!'
+  toggle-alerts: '&8[&eAG&8] &7AngleGuard Alerts %result%'
+
+  # Message shown when the config is reloaded.
+  reload: '&8[&eAG&8] &7AngleGuard config reloaded!'
+
+  # Hover details in alert messages, giving more info about the player and the server.
+  # %tps% - Current TPS of the server.
+  # %client_version% - Minecraft version the player is using.
+  # %client_brand% - Client brand of the player.
+  # %player%, %ping%, %check%, %description% - As explained above.
+  alerts-hover:
+    - "&7TPS: &e%tps%&8 | &7Client Version: &e%client_version% &8| &7Client Brand: &e%client_brand%"
+    - ""
+    - "&7Player: &e%player%"
+    - "&7Ping: &e%ping%"
+    - ""
+    - "&7Check: &e%check%"
+    - "&7Description: &e%description%"
+    - ""
+    - "&7Click to teleport to &e%player%"
+
+  # Clickable commands in the hover message to quickly teleport to the player or change gamemode.
+  command-hover-click:
+    - "/tp %player%" # Teleport to the player.
+    - "/gmsp" # Switch to spectator mode.
+
+# =============================
+#  General Settings
+# =============================
+general:
+  # Name of the server (appears in alerts and Discord webhooks).
+  server-name: "Your Server Name"
+
+  # Prefix for bedrock players (Geyser/Floodgate support).
+  bedrock: "."
+
+  # Enable or disable console alerts.
+  console-alert: true
+
+  # Time (in minutes) to reset violation levels.
+  reset-violet: 10
+
+  # Sound alert settings for staff when an alert is triggered.
+  sound-alert:
+    enable: true # Enable or disable sound alerts.
+    sound: 'ENTITY_EXPERIENCE_ORB_PICKUP' # Sound played on alert.
+
+# =============================
+#  Discord Webhook Integration
+# =============================
+discord-webhook:
+  # Cooldown to prevent webhook spam.
+  cooldown: false
+  cooldown-reset-ticks: 12000 # Reset cooldown after 12000 ticks (10 mins).
+  cooldown-max-webhooks: 100 # Max webhook calls during cooldown.
+
+  # Enable or disable webhook alerts.
+  alerts:
+    enabled: false # Enable Discord alerts.
+    url: 'your-webhook-url-here' # Add your Discord Webhook URL.
+
+    # Customize the webhook appearance.
+    avatar: 'url-to-avatar-image'
+    thumbnail: 'http://cravatar.eu/avatar/%player%/64.png' # Player's avatar in the alert.
+
+    # Embed color (RGB format).
+    color-r: 252
+    color-g: 140
+    color-b: 3
+
+    # Webhook content setup.
+    username: 'AngleGuard' # Bot username in Discord alert.
+    title: 'AngleGuard Alert' # Webhook alert title.
+    # %player%, %check%, %vl%, %max_vl% are placeholders used in the description.
+    description: '__%player%__ failed **(%check%)** VL[**%vl%**/**%max_vl%**]'
+
+    # Optional: Content outside of the embed (e.g., for tagging).
+    content: ''
+
+    # Toggle specific fields in the webhook embed.
+    server-name-field: false # Show server name in the alert embed.
+    description-field: false # Show the description of the alert.
+    location-field: true # Show the player's location when the alert triggers.
+    ping-tps-field: true # Show server's ping and TPS in the alert.
+
+# =============================
+#  Check Configurations
+# =============================
+check:
+  # Crystal Walk (CW) check for Crystal PvP.
+  # %player% - Player who triggered the check.
+  # %check% - Name of the check (CW in this case).
+  cw:
+    enable: true # Enable or disable CW check.
+    max-cps: 6 # Max crystal placements per second.
+    max-violet: 3 # Max violation level for CW before action.
+    minimum-tps: 18.5 # Minimum TPS to prevent false positives.
+    broadcast: true # Broadcast to all players when CW violation happens.
+    broadcast-message:
+      - '&4%player% &chas been banned for 1 hour for using CW exploit.' # Custom ban message.
+    punishment: true # Enable punishment for CW violation.
+    punishment-commands:
+      - 'tempban %player% 1h &eRemove your &6Walksy &eor &6Optimizer Crystal'
+
+  # Auto Totem check to detect automatic totem usage.
+  # %player% - Player who triggered the check.
+  # %check% - Name of the check (AutoTotem in this case).
+  auto-totem:
+    a:
+      enable: true
+      setback: true
+      max-violet: 5 # Max violation level before action is taken.
+      delay: 10 # Time between checks.
+      minimum-tps: 18.5 # Minimum TPS to avoid false positives.
+      broadcast: true
+      broadcast-message:
+        - '&4%player% &chas been banned for 1 hour for AutoTotem usage.'
+      punishment: true
+      punishment-commands:
+        - 'tempban %player% 1h &eRemove your &6Auto Totem.'
+    b:
+      enable: true
+      setback: true
+      max-violet: 4
+      delay: 9
+      minimum-tps: 18.5
+      broadcast: true
+      broadcast-message:
+        - '&4%player% &chas been banned for 1 hour for AutoTotem usage.'
+      punishment: true
+      punishment-commands:
+        - 'tempban %player% 1h &eRemove your &6Auto Totem.'
+    c:
+      enable: true
+      setback: true
+      max-violet: 2
+      delay: 9
+      minimum-tps: 18.5
+      broadcast: true
+      broadcast-message:
+        - '&4%player% &chas been banned for 1 hour for AutoTotem usage.'
+      punishment: true
+      punishment-commands:
+        - 'tempban %player% 1h &eRemove your &6Auto Totem.'
+    d:
+      enable: true
+      setback: true
+      max-violet: 4
+      binds: true # Check if the player has multiple bound keys for totems.
+      minimum-tps: 18.5
+      broadcast: true
+      broadcast-message:
+        - '&4%player% &chas been banned for 1 hour for AutoTotem usage.'
+      punishment: true
+      punishment-commands:
+        - 'tempban %player% 1h &eRemove your &6Auto Totem.'
+
+config-version: 2 # Do not change this value.
+# ----------------------------------------------
+# Plugin made to enhance PvP server experiences (CrystalPvP, BoxPvP, etc.).
+# For further support, contact the plugin author.
+# Don't forget to leave feedback if you find the plugin helpful!

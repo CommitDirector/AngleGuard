@@ -1,0 +1,13 @@
+name: AngleGuard
+version: '1.3.0.3'
+main: me.elilroy.angleguard.AngleGuard
+api-version: '1.13'
+authors:
+  - "L4oySt0rm"
+  - "mF0X_"
+description: Minecraft Plugin Made in Cambodia
+commands:
+  angleguard:
+    aliases: [ag]
+    permission-message: 'not access you use this command.'
+    description: Reload the configuration
