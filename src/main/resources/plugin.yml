@@ -1,0 +1,34 @@
+name: AngleGuard
+version: '1.3.0.6'
+main: me.elilroy.angleguard.AngleGuard
+api-version: '1.16'
+authors:
+  - "L4oySt0rm"
+  - "mF0X_"
+description: Minecraft Plugin Made in Cambodia
+commands:
+  angleguard:
+    aliases: [ag]
+    description: Reload the configuration
+  alerts:
+    description: Toggle Alerts Check
+
+permissions:
+  angleguard.alerts:
+    description: 'Allows a player to use toggle alerts commands.'
+
+  angleguard.disablecheck:
+    description: 'Allows a player to use disable check commands.'
+
+  angleguard.enablecheck:
+    description: 'Allows a player to use enable check commands.'
+
+  angleguard.use:
+    description: 'Allows a player to use help commands.'
+
+  angleguard.reload:
+    description: 'Allows a player to use reload commands.'
+
+  angleguard.testautototem:
+    description: 'Allows a player to use test totem commands.'
+

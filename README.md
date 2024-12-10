@@ -9,6 +9,17 @@ of [AngleGuard](https://builtbybit.com/resources/angleguard-anti-cw-anti-auto-to
 > The source code has been personally deobfuscated, cleaned, and formatted for better readability, as the original was
 > highly obfuscated.
 
+> [!CAUTION]  
+> As of version 1.3.0.6, AngleGuard no longer obfuscates its code, making it clear just how bad it really is. While the
+> developers never admitted to having any security issues, they updated the plugin to fix the first glaring flaw I pointed
+> out: the complete lack of permission checks. However, the overall code quality is still terrible, showing that the
+> developers have no idea what they're doing.
+>
+> Even worse, they’ve now started skidding [TotemGuard](https://github.com/Bram1903/TotemGuard), copying not just check
+> logic but even message formats. This proves they can’t create their own solutions and are instead trying to make their
+> plugin look better by copying others. Yet despite skidding, they still managed to fail. The code is so bad that it
+> should never be run on any server under any circumstances.
+
 ## Why Should You Avoid Using This Project?
 
 AngleGuard is plagued with numerous issues that render it unreliable and insecure. Some key problems include:
